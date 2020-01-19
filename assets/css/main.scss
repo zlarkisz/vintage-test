@@ -1,0 +1,40 @@
+@import "variables";
+@import "fonts";
+@import "mixins";
+
+* {
+  font-family: "Samplino";
+  font-weight: lighter;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font: 300 50px/48px "Samplino";
+
+  @media only screen and (max-width: 576px) {
+    font: 300 36px/48px "Samplino";
+  }
+}
+
+h3 {
+  font: 300 34px/48px "Samplino";
+
+  @media only screen and (max-width: 576px) {
+    font: 300 22px/36px "Samplino";
+  }
+}
+
+p,
+a {
+  font: 300 15px/28px "Samplino";
+  text-decoration: none;
+}
+
+.c_white {
+  color: $c-white;
+}
+
+.bg_black {
+  background: $c-gray;
+}
