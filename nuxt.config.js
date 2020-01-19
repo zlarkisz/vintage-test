@@ -37,7 +37,7 @@ export default {
    */
   modules: ["@nuxtjs/axios"],
   axios: {
-    baseURL: "http://httpbin.org"
+    baseURL: "https://httpbin.org"
   },
   /*
    ** Build configuration
