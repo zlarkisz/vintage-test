@@ -7,6 +7,7 @@
       :class="['base-input', { 'base-input--error' :error }]"
     />
     <label :for="name" :class="error ? 'error' : ''">{{ label }}</label>
+    <span v-if="error" class="error-message" >Invalid input field</span>
   </section>
 </template>
 
@@ -103,6 +104,13 @@ section {
       border-bottom: 1px solid $c-white;
       color: $c-white;
     }
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
   }
 
   input:focus + label {

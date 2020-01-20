@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="communication">
-      <h3 class="communication__title">Contact Us</h3>
+      <h3 class="communication__title c_white">Contact Us</h3>
       <div class="communication__content">
         <base-form />
 

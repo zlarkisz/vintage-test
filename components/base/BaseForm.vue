@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="firstValidate().then(sendForm)">
+  <form ref="form" @submit.prevent="firstValidate().then(sendForm)">
     <base-input
       v-model="name.value"
       label="Name"
@@ -36,7 +36,11 @@
       :first-submit="firstSubmit"
       @change="fieldsValidate"
     />
-    <button :disabled="submitDisabled" class="button">Get in touch</button>
+    <button
+      ref="button"
+      :disabled="submitDisabled"
+      :class="['button', { 'active' : submitDisabled }]"
+    >Get in touch</button>
   </form>
 </template>
 
@@ -98,6 +102,7 @@ export default {
             phone: this.phone.value
           });
           this.submitDisabled = true;
+          this.setDisabledButton();
         }
       } catch (e) {
         console.log(e);
@@ -113,6 +118,17 @@ export default {
     firstValidate() {
       this.firstSubmit = true;
       return Promise.resolve();
+    },
+    setDisabledButton() {
+      const button = this.$refs.button;
+
+      setTimeout(() => {
+        button.classList.add("success");
+      }, 3000);
+
+      setTimeout(() => {
+        button.classList.remove("active", "success");
+      }, 4500);
     }
   }
 };
@@ -129,26 +145,101 @@ form {
   width: 100%;
 
   .button {
-    font: 700 11px/11px "Samplino";
-    text-align: center;
-    padding: 35px 0;
-    min-width: 280px;
+    display: inline-block;
+    width: 220px;
+    height: 60px;
+    color: #fff;
     border: 0;
-    background: $c-gray;
-    color: $c-white;
-    white-space: nowrap;
+    text-align: center;
     text-decoration: none;
-    cursor: pointer;
+    line-height: 56;
+    box-sizing: border-box;
+    background-color: $c-gray;
+    outline: none;
+    transition: all ease 0.5s;
     margin-top: 50px;
-
-    @media only screen and (max-width: 576px) {
-      min-width: 110px;
-      padding: 15px 0;
-      margin-top: 20px;
-    }
+    font: 700 11px/11px "Samplino";
+    cursor: pointer;
 
     &:focus {
       outline: none;
+    }
+
+    &:hover {
+      animation: text-shadow 1.5s ease-in-out infinite;
+      font: 700 20px/20px "Samplino";
+    }
+
+    @keyframes text-shadow {
+      0% {
+        transform: translateY(0);
+        text-shadow: 0 0 0 #0c2ffb, 0 0 0 #2cfcfd, 0 0 0 #fb203b, 0 0 0 #fefc4b;
+      }
+      20% {
+        transform: translateY(-1em);
+        text-shadow: 0 0.125em 0 #0c2ffb, 0 0.25em 0 #2cfcfd,
+          0 -0.125em 0 #fb203b, 0 -0.25em 0 #fefc4b;
+      }
+      40% {
+        transform: translateY(0.5em);
+        text-shadow: 0 -0.0625em 0 #0c2ffb, 0 -0.125em 0 #2cfcfd,
+          0 0.0625em 0 #fb203b, 0 0.125em 0 #fefc4b;
+      }
+      60% {
+        transform: translateY(-0.25em);
+        text-shadow: 0 0.03125em 0 #0c2ffb, 0 0.0625em 0 #2cfcfd,
+          0 -0.03125em 0 #fb203b, 0 -0.0625em 0 #fefc4b;
+      }
+      80% {
+        transform: translateY(0);
+        text-shadow: 0 0 0 #0c2ffb, 0 0 0 #2cfcfd, 0 0 0 #fb203b, 0 0 0 #fefc4b;
+      }
+    }
+  }
+
+  .active {
+    font-size: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    animation: rotate 1.4s ease 0.5s infinite;
+    border: 2px solid $c-white;
+    border-left-color: transparent;
+    background-color: transparent;
+
+    &:hover {
+      font: 700 0px/11px "Samplino";
+    }
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .success {
+    position: relative;
+    background-color: #fff;
+    animation: bounce 0.3s ease-in;
+
+    &::before {
+      content: "";
+      position: absolute;
+      background: url("../../assets/images/tick.svg") no-repeat;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      width: 31px;
+      height: 31px;
+      line-height: 31px;
+      top: 8px;
+    }
+  }
+
+  @keyframes bounce {
+    0% {
+      transform: scale(0.9);
     }
   }
 }

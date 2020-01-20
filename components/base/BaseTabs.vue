@@ -1,10 +1,9 @@
 <template>
   <div class="tabs">
     <span
-      v-for="(tab, index) in tabs"
-      :key="index"
-      class="color_white tabs__item"
-      :class="tab.name === selectedTab.name ? 'selected' : ''"
+      v-for="(tab, i) in tabs"
+      :key="i"
+      :class="['tabs__item', 'c_white', { 'selected' : tab.name === selectedTab.name }]"
       @click="setTab(tab)"
     >{{ tab.name }}</span>
   </div>
@@ -12,22 +11,28 @@
 
 <script>
 import { mapActions } from "vuex";
+
 export default {
-  name: "Tabs",
+  name: "BaseTabs",
+
   props: {
     tabs: {
       type: Array,
+      required: false,
       default: () => []
     }
   },
+
   data() {
     return {
       selectedTab: this.tabs[0]
     };
   },
+
   created() {
     this.setTab(this.selectedTab);
   },
+
   methods: {
     ...mapActions({ setTabAction: "map/setTab" }),
     setTab(tab) {
@@ -40,28 +45,29 @@ export default {
 
 <style scoped lang="scss">
 @import "@/assets/css/variables";
+@import "@/assets/css/mixins";
 
-.tabs__item {
-  padding: 5px 5px 5px 0;
-  text-transform: uppercase;
-  &.selected {
-    color: $c-green;
+.tabs {
+  margin-bottom: 40px;
+
+  @media only screen and (max-width: 576px) {
+    @include flex(flex-start, center);
+    flex-direction: column;
+    margin-bottom: 20px;
   }
-  &:hover {
-    cursor: pointer;
-  }
-}
-.tabs__item {
-  font-size: 12px;
-}
-@media (min-width: 768px) {
-  .tabs__item {
+
+  &__item {
     font-size: 12px;
-  }
-}
-@media (min-width: 992px) {
-  .tabs__item {
-    padding: 10px 10px 10px 0;
+    padding: 5px 5px 5px 0;
+    text-transform: uppercase;
+
+    &.selected {
+      color: $c-green;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 </style>

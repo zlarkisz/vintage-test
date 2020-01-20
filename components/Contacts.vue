@@ -84,9 +84,6 @@ export default {
     padding: 30px 30px 60px;
   }
 
-  &__title {
-  }
-
   &__content {
     @include flex(flex-start, space-between);
     margin-top: 30px;

@@ -5,6 +5,8 @@
       :class="['base-checkbox__label', { 'base-checkbox--error' : error }, { 'base-checkbox--active' : checked } ]"
       :for="name"
     >{{ label }}</label>
+    <br>
+    <span v-if="error" class="error-message" >Invalid input field</span>
   </section>
 </template>
 
