@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.9.3",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "heroku": "^7.35.1",
     "node-sass": "^4.13.1",
     "nuxt": "^2.0.0",
